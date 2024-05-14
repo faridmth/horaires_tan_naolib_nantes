@@ -3,12 +3,15 @@ import './form.css'
 import './select'
 import SelectInp from "./select";
 
-function Form(){
+function Form({setSelectedDestination,setShowResults}){
       const [arretsData,setArretsData]=useState([])  
       const [linesOptions,setLinesOptions]=useState([])  
       const [selectedLine,setSelectedLine]=useState(null)
       const [arretOptions,setarretOptions]=useState([])
       const [selectedArret,setSelectedArret]=useState(null)
+      const [tempsattenteData,setTempsattenteData]=useState(null)
+      const [directionsOptions,setDirectionsOptions]=useState([])
+      const [selectedSens,setSelectedSens]=useState(null)
 
 
       useEffect(()=>{
@@ -56,22 +59,65 @@ function Form(){
             arrets.push({value: arretsData[index].codeLieu, label: arretsData[index].libelle })
         })
         setarretOptions(arrets)
+        setSelectedArret(null)
+        setSelectedSens(null)
+
         
       },[selectedLine])
 
+      useEffect(()=>{
+        async function fetchData(){
+            let data = await fetch(`https://open.tan.fr/ewp/tempsattente.json/${selectedArret}`)
+            data = await data.json() 
+            setTempsattenteData(data)
+            }
 
+        if(selectedArret){
+            fetchData()
+        }
+
+      },[selectedArret])
       
-      
+      useEffect(()=>{
+        if (tempsattenteData !== null) {
+            let sens1 = { label: 'Sens 1', options: [] };
+            let sens2 = { label: 'Sens 2', options: [] };
+          
+            tempsattenteData.forEach((elm, index) => {
+              let isDuplicateSens1 = sens1.options.some((elm2) => elm.terminus === elm2.label);
+              let isDuplicateSens2 = sens2.options.some((elm2) => elm.terminus === elm2.label);
+          
+              if (elm.sens === 1 && !isDuplicateSens1) {
+                sens1.options.push({ value: index, label: elm.terminus });
+              } else if (elm.sens === 2 && !isDuplicateSens2) {
+                sens2.options.push({ value: index, label: elm.terminus });
+              }
+            });
 
+            setDirectionsOptions([sens1, sens2]);
+            setSelectedSens(null)
+            
+          }
+        
+      },[tempsattenteData])
 
+      useEffect(()=>{
+        if(selectedSens!==null){
+            setSelectedDestination(tempsattenteData[selectedSens])
+        }
+      },[selectedSens])
 
-//                  
+      const clickHandler = ()=>{
+        setShowResults(true)
+      }
 
     return (
         <div >
             <h2>Rechercher ma ligne</h2>
             <SelectInp options={linesOptions} onchageFunc={setSelectedLine} isDisabled={false} placeHolder={'Cliquez ici pour sélectionner une ligne'}/>
-            <SelectInp key={selectedLine} options={arretOptions} onchageFunc={setSelectedArret} isDisabled={selectedLine===null?true:false} placeHolder={'Cliquez ici pour sélectionner une arret'}/>
+            <SelectInp key={selectedLine + '66'} options={arretOptions} onchageFunc={setSelectedArret} isDisabled={selectedLine===null?true:false} placeHolder={'Cliquez ici pour sélectionner une arret'}/>
+            <SelectInp key={selectedArret + '99'} options={directionsOptions} onchageFunc={setSelectedSens} isDisabled={selectedArret===null?true:false} placeHolder={'Cliquez ici pour sélectionner une destination'}/>
+            <button onClick={clickHandler} disabled={selectedSens===null?true:false}>Show result</button>
         </div>
     )
 }
