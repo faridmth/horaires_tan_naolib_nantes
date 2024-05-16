@@ -1,0 +1,35 @@
+
+.result-conatiner{
+    width: 100%;
+    height: 100%;
+}
+.horaires-cont{
+    position: relative;
+    top: 10px;
+}
+#hor-btn{
+    border: none;
+    padding: 5px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    width: 85px;
+    background-color: #141529;
+    color: #78d700;
+    font-weight: bold;
+    cursor: pointer;
+}
+.title-cont{
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+.title-cont h4{
+    text-align: center;
+    width: 80%;
+}
+.title-cont h4 span{
+    padding: 2px 7px;
+    border-radius: 4px;
+    margin: 0px 2px;
+}
