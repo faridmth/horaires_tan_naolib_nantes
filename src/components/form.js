@@ -83,8 +83,6 @@ function Form({setSelectedDestination,setShowResults}){
             let sens1 = { label: 'Sens 1', options: [] };
             let sens2 = { label: 'Sens 2', options: [] };
           
-            console.log(selectedLine)
-            console.log(tempsattenteData)
             tempsattenteData.forEach((elm, index) => {
               let isDuplicateSens1 = sens1.options.some((elm2) => elm.terminus === elm2.label);
               let isDuplicateSens2 = sens2.options.some((elm2) => elm.terminus === elm2.label);

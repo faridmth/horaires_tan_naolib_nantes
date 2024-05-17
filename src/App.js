@@ -9,6 +9,7 @@ function App() {
   const[resultData,setResultData]=useState(null)
   const [showResults,setShowResults]=useState(false)
   const [lineColor,setLineColor]=useState(false)
+  const [refrechData,setRefrechData]=useState(3)
 
   useEffect(()=>{
     async function fetchData(){
@@ -20,7 +21,7 @@ function App() {
       fetchData()
     }
 
-  },[selectedDestination])
+  },[selectedDestination,refrechData])
   useEffect(()=>{
     async function fetchData(){
       let data = await fetch(`https://nantesmetropole.opendatasoft.com/api/explore/v2.1/catalog/datasets/244400404_tan-circuits/records?limit=100&refine=route_short_name%3A"${resultData.ligne.numLigne}"`)
@@ -35,7 +36,7 @@ function App() {
   return (
     <div className='main-container'>
     {! showResults && <Form setSelectedDestination={setSelectedDestination} setShowResults={setShowResults}/>}
-    {showResults && resultData && <Result resultData={resultData} selectedDestination={selectedDestination} lineColor={lineColor}/>}
+    {showResults && resultData && <Result resultData={resultData} selectedDestination={selectedDestination} lineColor={lineColor} setShowResults={setShowResults} setRefrechData={setRefrechData} setResultData={setResultData}/>}
    </div>
   )
 }

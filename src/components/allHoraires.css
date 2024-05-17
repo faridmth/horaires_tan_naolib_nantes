@@ -1,0 +1,37 @@
+.all-horaires-cont{
+    background-color: #03c988;
+    position: absolute;
+    z-index: 1000;
+    height: 100%;
+    width: 100%;
+    overflow: scroll;
+}
+.line{
+    display: flex;
+    color: black;
+
+}
+.passages{
+    display: flex;
+}
+.heure{
+    width: 35px;
+    margin-left: 5px;
+}
+.minute{
+    margin-left: 2px;
+}
+.close-icon{
+    position:sticky;
+    left: 415px;
+    top: 15px;
+    width: 14px;
+    cursor: pointer;
+    border:3px solid rgb(43, 38, 38);
+    padding: 2px;
+    border-radius: 50%;
+}
+.note-cont{
+    font-weight: bold;
+    margin-left: 10px;
+}
