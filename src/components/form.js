@@ -37,9 +37,38 @@ function Form({setSelectedDestination,setShowResults}){
                 strings.sort()
                 lignesWD = numbers.concat(strings)
                 lignesWD.map((lines)=>{
-                    lignes.push({ value: lines, label: lines })
+                  if(lines === "1"){
+                    lignes.push({ value: lines, label: 'tram 1' })
+                  }else if(lines === "2"){
+                    lignes.push({ value: lines, label: 'tram 2' })
+                  }
+                  else if(lines === "3"){
+                    lignes.push({ value: lines, label: 'tram 3' })
+                  }
+                  else if(lines === "4"){
+                    lignes.push({ value: lines, label: 'Busway L4' })
+                  }
+                  else if(lines === "5"){
+                    lignes.push({ value: lines, label: 'Busway L5' })
+                  }
+                  else if(lines === "NA"){
+                    lignes.push({ value: lines, label: 'Navette Aéroport' })
+                  }
+                  else if(lines === "N1"){
+                    lignes.push({ value: lines, label: 'N1 - Navibus Loire' })
+                  }
+                  else if(lines === "N2"){
+                    lignes.push({ value: lines, label: 'N2 - Navibus Loire' })
+                  }
+                  else if(lines === "N3"){
+                    lignes.push({ value: lines, label: "N3 - Navibus Passeur de l'Erdre" })
+                  }
+                  else{
+                    lignes.push({ value: lines, label: `Bus ${lines}` })
+                  }
                 })
             setLinesOptions(lignes)   
+            console.log(lignes)
         }
         fetchData()
       },[])
@@ -69,6 +98,8 @@ function Form({setSelectedDestination,setShowResults}){
         async function fetchData(){
             let data = await fetch(`https://open.tan.fr/ewp/tempsattente.json/${selectedArret}`)
             data = await data.json() 
+            console.log(data)
+
             setTempsattenteData(data)
             }
 

@@ -50,18 +50,19 @@ function Result({resultData,selectedDestination,lineColor,setShowResults,setRefr
     const clickHandler =()=>{
         setShowResults(false)
     }
-    const refreshHandler =()=>{
-        setResultData(null)
-        setRefrechData(Math.random())
+    const refreshHandler =async ()=>{
+        await setResultData(null)
+        await setRefrechData(Math.random())
+
     }
-    const showAllhorairesHandler = ()=>{
-        setRefrechData(Math.random())
+    const showAllhorairesHandler = async()=>{
+        await setRefrechData(Math.random())
         setShowAllHoraires(true)
     }
 
     return(
         <div className="result-conatiner">
-            {showAllHoraires&&<AllHoraires resultData={resultData} setShowAllHoraires={setShowAllHoraires} setRefrechData={setRefrechData}/>}
+            {showAllHoraires&&<AllHoraires resultData={resultData} setShowAllHoraires={setShowAllHoraires} setRefrechData={setRefrechData} setResultData={setResultData}/>}
             <div className="horaires-cont">
                 {resultData.horaires.length>0&&<button id="hor-btn" onClick={showAllhorairesHandler}>HORAIRES</button>}
                 <img src={refreshIcon} alt="refresh" onClick={refreshHandler}/>

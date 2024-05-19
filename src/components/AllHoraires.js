@@ -2,16 +2,17 @@ import React, { useEffect, useState } from "react";
 import './allHoraires.css'
 import cross from './images/cross.png'
 
-function AllHoraires({resultData,setShowAllHoraires,setRefrechData}){
+function AllHoraires({resultData,setShowAllHoraires,setRefrechData,setResultData}){
     const [allHoraires,setAllHoraires]=useState(null)
 
     useEffect(()=>{
         let horaires = resultData.horaires
         setAllHoraires(horaires)
     },[resultData])
-    const closeHandle = ()=>{
-        setRefrechData(Math.random())
-        setShowAllHoraires(false)
+    const closeHandle = async ()=>{
+        await setResultData(null)
+        await setRefrechData(Math.random())
+        await setShowAllHoraires(false)
 
     }
 
